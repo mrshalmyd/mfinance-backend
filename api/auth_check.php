@@ -15,7 +15,7 @@ if ($payload === false) {
     setcookie('auth_token', '', [
         'expires' => time() - 3600,
         'path' => '/',
-        'secure' => false,
+        'secure' => true,
         'httponly' => true,
         'samesite' => 'Lax',
     ]);
