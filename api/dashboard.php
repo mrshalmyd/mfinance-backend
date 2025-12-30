@@ -119,6 +119,16 @@ $username = $usernameFromToken ?? 'Pengguna';
     </div>
 
   </main>
+  <script>
+  const hamburger = document.querySelector('.hamburger');
+  const navUser = document.querySelector('.nav-user');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navUser.classList.toggle('active');
+  });
+  </script>
+
 
 </body>
 </html>
