@@ -125,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <?php if ($login_success): ?>
             document.getElementById('loadingOverlay').classList.add('active');
             setTimeout(() => {
-                window.location.href = 'dashboard.php';
+                window.location.href = '/api/dashboard.php';
             }, 2000);
         <?php endif; ?>
     </script>

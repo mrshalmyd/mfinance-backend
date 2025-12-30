@@ -134,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <?php if ($signup_success): ?>
             document.getElementById('loadingOverlay').classList.add('active');
             setTimeout(() => {
-                window.location.href = 'login.php?signup=success';
+                window.location.href = '/api/login.php?signup=success';
             }, 2000);
         <?php endif; ?>
     </script>

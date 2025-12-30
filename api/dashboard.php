@@ -13,7 +13,7 @@ session_start();
 
 // Cek apakah sudah login
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: /api/login.php");
     exit();
 }
 
