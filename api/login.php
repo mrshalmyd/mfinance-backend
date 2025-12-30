@@ -1,12 +1,7 @@
 <?php
 // api/login.php
 
-// Definisi BASE_PATH agar path selalu aman di Vercel (naik 2 level dari api/ ke root)
-if (!defined('BASE_PATH')) {
-    define('BASE_PATH', dirname(__DIR__, 2));
-}
-
-require_once BASE_PATH . '/config/config.php';
+require_once __DIR__ . '/config/config.php';
 
 session_start();
 

@@ -5,13 +5,8 @@
       "runtime": "vercel-php@0.7.4"
     }
   },
-  "builds": [
-    {
-      "src": "api/**/*.php",
-      "use": "@vercel/php"
-    }
-  ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" }
+    { "src": "/api/(.*)",
+    "dest": "/api/$1" }
   ]
 }
