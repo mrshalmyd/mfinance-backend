@@ -25,8 +25,8 @@ $username = $_SESSION['username'] ?? 'Pengguna';
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="icon" href="/favicon.png" type="image/png" sizes="512x512">
-  <link rel="apple-touch-icon" href="/favicon.png" sizes="180x180">
+  <link rel="icon" href="assets/favicon.png" type="image/png" sizes="512x512">
+  <link rel="apple-touch-icon" href="assets/favicon.png" sizes="180x180">
   <title>Dashboard • Marshal Finance</title>
 
   <!-- CSS -->
