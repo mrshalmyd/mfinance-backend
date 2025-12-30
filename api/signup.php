@@ -112,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             Sudah punya akun? <a href="login.php">Masuk di sini</a>
         </p>
         <p class="back-home">
-            <a href="/index.html">← Kembali ke Beranda</a>
+            <a href="https://mfinance.mrshalmyd.workers.dev">← Kembali ke Beranda</a>
         </p>
     </div>
     <?php endif; ?>

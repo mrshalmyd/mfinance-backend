@@ -98,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             Belum punya akun? <a href="signup.php">Daftar gratis</a>
         </p>
         <p class="back-home">
-            <a href="/index.html">← Kembali ke Beranda</a>
+            <a href="https://mfinance.mrshalmyd.workers.dev">← Kembali ke Beranda</a>
         </p>
     </div>
 
