@@ -6,7 +6,7 @@ if (!defined('BASE_PATH')) {
     define('BASE_PATH', dirname(__DIR__, 2));
 }
 
-require_once BASE_PATH . '/../../app/config/config.php';
+require_once BASE_PATH . '/api/config.php';
 
 session_start();
 
