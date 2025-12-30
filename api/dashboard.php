@@ -25,31 +25,6 @@ $username = $usernameFromToken ?? 'Pengguna';
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-
-  <!-- Inline Styles (sementara, bisa dipindah ke CSS file) -->
-  <style>
-    .positive { color: #34d399; font-weight: 700; }
-    .big-value { font-size: 3rem; font-weight: 700; margin: 1rem 0; }
-    .quick-actions { text-align: center; margin: 3rem 0; }
-    .btn-action {
-      display: inline-block;
-      padding: 1rem 2rem;
-      margin: 0.5rem;
-      background: rgba(99, 102, 241, 0.2);
-      border: 1px solid rgba(99, 102, 241, 0.5);
-      border-radius: 12px;
-      color: #c7d2fe;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-    .btn-action:hover {
-      background: rgba(99, 102, 241, 0.4);
-      transform: translateY(-4px);
-      box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
-    }
-    .highlight { border: 2px solid #6366f1; }
-  </style>
 </head>
 <body>
 
@@ -94,9 +69,11 @@ $username = $usernameFromToken ?? 'Pengguna';
 
     <!-- Quick Actions -->
     <div class="quick-actions">
-      <a href="#" class="btn-action">💰 Top Up Saldo</a>
-      <a href="#" class="btn-action">📈 Investasi Baru</a>
-      <a href="#" class="btn-action">💸 Tarik Dana</a>
+      <div class="action-buttons">
+        <a href="#" class="action-btn">💰 Top Up Saldo</a>
+        <a href="#" class="action-btn">📈 Investasi Baru</a>
+        <a href="#" class="action-btn">💸 Tarik Dana</a>
+      </div>
     </div>
 
     <!-- Info Tambahan -->
