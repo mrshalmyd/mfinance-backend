@@ -1,27 +1,28 @@
 <?php
-/* ==================================================================
-   SIGNUP.PHP - Halaman pendaftaran akun Marshal Finance
-   ================================================================== */
+// api/signup.php
+
+// Definisi BASE_PATH agar path selalu aman di Vercel
+if (!defined('BASE_PATH')) {
+    define('BASE_PATH', dirname(__DIR__, 2));
+}
+
+require_once BASE_PATH . '/app/config/config.php';
+
 session_start();
 
-// Jika sudah login, langsung arahkan ke dashboard
 if (isset($_SESSION['user_id'])) {
     header("Location: dashboard.php");
     exit;
 }
 
-require_once __DIR__ . '/../app/config/config.php'; // Koneksi PDO
-
-$message = '';          // Pesan error atau info untuk user
-$signup_success = false; // Status apakah pendaftaran berhasil
+$message = '';
+$signup_success = false;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Ambil dan bersihkan input
-    $username = trim($_POST['username']);
-    $email    = trim($_POST['email']);
-    $password = $_POST['password'];
+    $username = trim($_POST['username'] ?? '');
+    $email    = trim($_POST['email'] ?? '');
+    $password = $_POST['password'] ?? '';
 
-    // Validasi dasar
     if (empty($username) || empty($email) || empty($password)) {
         $message = "Semua field wajib diisi.";
     } elseif (strlen($username) < 4) {
@@ -31,22 +32,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $message = "Format email tidak valid.";
     } else {
-        // Cek apakah username atau email sudah terdaftar
-        $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ? OR username = ?");
-        $stmt->execute([$email, $username]);
+        try {
+            $check = $db->query("SELECT id FROM users WHERE email = ? OR username = ?", [$email, $username]);
 
-        if ($stmt->rowCount() > 0) {
-            $message = "Username atau email sudah digunakan.";
-        } else {
-            // Hash password dan insert user baru
-            $hashed = password_hash($password, PASSWORD_DEFAULT);
-            $insert = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-            
-            if ($insert->execute([$username, $email, $hashed])) {
-                $signup_success = true; // Trigger loading overlay
+            if (!empty($check)) {
+                $message = "Username atau email sudah digunakan.";
             } else {
-                $message = "Gagal mendaftar. Silakan coba lagi.";
+                $hashed = password_hash($password, PASSWORD_DEFAULT);
+                $db->execute("INSERT INTO users (username, email, password) VALUES (?, ?, ?)", [$username, $email, $hashed]);
+                
+                $signup_success = true;
             }
+        } catch (Exception $e) {
+            $message = "Terjadi kesalahan server. Silakan coba lagi.";
+            error_log("Signup error: " . $e->getMessage());
         }
     }
 }
@@ -58,55 +57,44 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar • Marshal Finance</title>
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/auth.css">
 </head>
 <body>
 
-    <!-- Background dekoratif dengan blob bergerak -->
     <div class="auth-bg">
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
         <div class="blob blob-3"></div>
     </div>
 
-    <!-- Card signup - hanya tampil jika belum sukses -->
     <?php if (!$signup_success): ?>
     <div class="auth-container minimal">
         <div class="auth-logo">Marshal<span>Finance</span></div>
 
-        <!-- Pesan error atau validasi -->
         <?php if ($message): ?>
-            <div class="alert <?= $signup_success ? 'success' : 'error' ?>">
-                <?= htmlspecialchars($message) ?>
-            </div>
+            <div class="alert error"><?= htmlspecialchars($message) ?></div>
         <?php endif; ?>
 
-        <!-- Form pendaftaran -->
         <form method="POST" class="auth-form">
-            <!-- Username -->
             <div class="form-group">
                 <input type="text" name="username" id="username" value="<?= htmlspecialchars($_POST['username'] ?? '') ?>" required placeholder=" ">
                 <label for="username">Username</label>
             </div>
 
-            <!-- Email -->
             <div class="form-group">
                 <input type="email" name="email" id="email" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>" required placeholder=" ">
                 <label for="email">Email</label>
             </div>
 
-            <!-- Password dengan toggle icon berubah -->
             <div class="form-group password-group">
                 <input type="password" name="password" id="password" required placeholder=" ">
                 <label for="password">Password</label>
                 <span class="toggle-password">
-                    <!-- Mata terbuka (default - password hidden) -->
                     <svg class="eye-open" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
                     </svg>
-                    <!-- Mata tertutup (saat password visible) -->
                     <svg class="eye-closed" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
@@ -118,30 +106,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <button type="submit" class="btn-auth">Daftar Gratis</button>
         </form>
 
-        <!-- Link ke login & beranda -->
         <p class="auth-footer">
             Sudah punya akun? <a href="login.php">Masuk di sini</a>
         </p>
         <p class="back-home">
-            <a href="index.html">← Kembali ke Beranda</a>
+            <a href="/index.html">← Kembali ke Beranda</a>
         </p>
     </div>
     <?php endif; ?>
 
-    <!-- Loading overlay saat signup sukses -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="spinner"></div>
         <h3>Pendaftaran Berhasil! 🎉</h3>
         <p>Mengalihkan ke halaman login...</p>
     </div>
 
-    <!-- JavaScript untuk toggle password & loading redirect -->
     <script>
-        // Toggle password - ganti icon mata terbuka/tertutup
         document.querySelectorAll('.toggle-password').forEach(toggle => {
             toggle.addEventListener('click', function () {
                 const input = this.parentElement.querySelector('input');
-                
                 if (input.type === 'password') {
                     input.type = 'text';
                     this.classList.add('active');
@@ -152,12 +135,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             });
         });
 
-        // Tampilkan loading jika signup sukses
         <?php if ($signup_success): ?>
             document.getElementById('loadingOverlay').classList.add('active');
             setTimeout(() => {
                 window.location.href = 'login.php?signup=success';
-            }, 2000); // Delay 2 detik
+            }, 2000);
         <?php endif; ?>
     </script>
 

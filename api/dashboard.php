@@ -1,7 +1,17 @@
 <?php
+// api/dashboard.php
+
+// Definisi BASE_PATH agar path aman di Vercel (naik 2 level dari api/ ke root)
+if (!defined('BASE_PATH')) {
+    define('BASE_PATH', dirname(__DIR__, 2));
+}
+
+// Include config D1 (kalau nanti mau fetch data real dari DB)
+require_once BASE_PATH . '/app/config/config.php';
+
 session_start();
 
-// Cek login
+// Cek apakah sudah login
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
@@ -15,14 +25,14 @@ $username = $_SESSION['username'] ?? 'Pengguna';
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="icon" href="favicon.png" type="image/png" sizes="512x512">
-  <link rel="apple-touch-icon" href="favicon.png" sizes="180x180">
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="512x512">
+  <link rel="apple-touch-icon" href="/favicon.png" sizes="180x180">
   <title>Dashboard • Marshal Finance</title>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/dashboard.css">
-  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/navbar.css">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
