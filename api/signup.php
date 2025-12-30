@@ -56,8 +56,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="assets/favicon.png" type="image/png" sizes="512x512">
-    <link rel="apple-touch-icon" href="assets/favicon.png" sizes="180x180">
+    <link rel="icon" href="https://mfinance.mrshalmyd.workers.dev/assets/favicon.png" type="image/png" sizes="512x512">
+    <link rel="apple-touch-icon" href="https://mfinance.mrshalmyd.workers.dev/assets/favicon.png" sizes="180x180">
     <title>Daftar • Marshal Finance</title>
     <link rel="stylesheet" href="https://mfinance.mrshalmyd.workers.dev/css/base.css">
     <link rel="stylesheet" href="https://mfinance.mrshalmyd.workers.dev/css/auth.css">
