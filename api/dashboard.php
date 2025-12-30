@@ -7,7 +7,7 @@ if (!defined('BASE_PATH')) {
 }
 
 // Include config D1 (kalau nanti mau fetch data real dari DB)
-require_once BASE_PATH . '/app/config/config.php';
+require_once BASE_PATH . '/../../app/config/config.php';
 
 session_start();
 
