@@ -56,17 +56,25 @@ $username = $usernameFromToken ?? 'Pengguna';
 
   <!-- Navbar -->
   <nav class="navbar">
-    <div class="logo">
-      Marshal<span>Finance</span>
-    </div>
+  <div class="logo">
+    Marshal<span>Finance</span>
+  </div>
 
-    <div class="nav-user">
-      <span class="welcome">
-        Halo, <?= htmlspecialchars($username) ?> 👋
-      </span>
-      <a href="logout.php" class="btn-logout">Keluar</a>
-    </div>
-  </nav>
+  <!-- Hamburger untuk mobile -->
+  <div class="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <div class="nav-user">
+    <span class="welcome">
+      Halo, <?= htmlspecialchars($username) ?> 👋
+    </span>
+    <a href="logout.php" class="btn-logout">Keluar</a>
+  </div>
+</nav>
+
 
   <!-- Main Content -->
   <main class="dashboard-content">
