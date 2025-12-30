@@ -30,9 +30,9 @@ $username = $_SESSION['username'] ?? 'Pengguna';
   <title>Dashboard • Marshal Finance</title>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/css/base.css">
-  <link rel="stylesheet" href="/css/dashboard.css">
-  <link rel="stylesheet" href="/css/navbar.css">
+  <link rel="stylesheet" href="https://mfinance.mrshalmyd.workers.dev/css/base.css">
+  <link rel="stylesheet" href="https://mfinance.mrshalmyd.workers.dev/css/dashboard.css">
+  <link rel="stylesheet" href="https://mfinance.mrshalmyd.workers.dev/css/navbar.css">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
