@@ -1,17 +1,10 @@
 <?php
-// api/login.php
-
 require_once __DIR__ . '/config/config.php';
-
-session_start();
-
-if (isset($_SESSION['user_id'])) {
-    header("Location: /api/dashboard.php");
-    exit;
-}
+require_once __DIR__ . '/lib/jwt.php';
 
 $message = '';
 $login_success = false;
+$JWT_SECRET = getenv('JWT_SECRET') ?: 'dev-secret-change-this';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email    = trim($_POST['email'] ?? '');
@@ -25,8 +18,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $user = !empty($results) ? $results[0] : null;
 
             if ($user && password_verify($password, $user['password'])) {
-                $_SESSION['user_id']  = $user['id'];
-                $_SESSION['username'] = $user['username'];
+                // Buat JWT token
+                $token = jwt_sign([
+                    'sub' => (string)$user['id'],
+                    'username' => $user['username'],
+                ], $JWT_SECRET, 3600);
+
+                // Set cookie JWT
+                setcookie('auth_token', $token, [
+                    'expires' => time() + 3600,
+                    'path' => '/',
+                    'secure' => false, // true kalau full HTTPS
+                    'httponly' => true,
+                    'samesite' => 'Lax',
+                ]);
+
                 $login_success = true;
             } else {
                 $message = "Email atau password salah.";

@@ -1,6 +1,6 @@
 <?php
-// Include config D1 (kalau nanti mau fetch data real dari DB)
 require_once __DIR__ . '/config/config.php';
+require_once __DIR__ . '/auth_check.php';
 
 session_start();
 
@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-$username = $_SESSION['username'] ?? 'Pengguna';
+$username = $usernameFromToken ?? 'Pengguna';
 ?>
 
 <!DOCTYPE html>
