@@ -1,11 +1,6 @@
 <?php
 // api/signup.php
 
-// Definisi BASE_PATH agar path selalu aman di Vercel
-if (!defined('BASE_PATH')) {
-    define('BASE_PATH', dirname(__DIR__, 2));
-}
-
 require_once __DIR__ . '/config/config.php';
 
 session_start();
@@ -40,7 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             } else {
                 $hashed = password_hash($password, PASSWORD_DEFAULT);
                 $db->execute("INSERT INTO users (username, email, password) VALUES (?, ?, ?)", [$username, $email, $hashed]);
-                
                 $signup_success = true;
             }
         } catch (Exception $e) {

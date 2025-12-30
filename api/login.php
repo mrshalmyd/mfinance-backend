@@ -25,9 +25,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $user = !empty($results) ? $results[0] : null;
 
             if ($user && password_verify($password, $user['password'])) {
-                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['user_id']  = $user['id'];
                 $_SESSION['username'] = $user['username'];
-                $login_success = true; // Trigger loading
+                $login_success = true;
             } else {
                 $message = "Email atau password salah.";
             }
