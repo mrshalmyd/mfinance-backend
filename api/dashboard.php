@@ -1,11 +1,4 @@
 <?php
-// api/dashboard.php
-
-// Definisi BASE_PATH agar path aman di Vercel (naik 2 level dari api/ ke root)
-if (!defined('BASE_PATH')) {
-    define('BASE_PATH', dirname(__DIR__, 2));
-}
-
 // Include config D1 (kalau nanti mau fetch data real dari DB)
 require_once __DIR__ . '/config/config.php';
 
