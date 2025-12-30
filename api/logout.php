@@ -8,5 +8,5 @@ setcookie('auth_token', '', [
     'samesite' => 'Lax',
 ]);
 
-header("Location: /api/login.php");
+header("Location: https://mfinance.mrshalmyd.workers.dev/");
 exit();
