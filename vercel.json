@@ -7,7 +7,7 @@
   },
   "builds": [
     {
-      "src": "api/*.php",
+      "src": "api/**/*.php",
       "use": "@vercel/php"
     }
   ],
