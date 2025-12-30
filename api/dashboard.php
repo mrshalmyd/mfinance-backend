@@ -2,14 +2,6 @@
 require_once __DIR__ . '/config/config.php';
 require_once __DIR__ . '/auth_check.php';
 
-session_start();
-
-// Cek apakah sudah login
-if (!isset($_SESSION['user_id'])) {
-    header("Location: /api/login.php");
-    exit();
-}
-
 $username = $usernameFromToken ?? 'Pengguna';
 ?>
 
